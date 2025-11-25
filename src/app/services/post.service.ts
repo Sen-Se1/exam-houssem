@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 @Injectable({
@@ -11,9 +12,13 @@ export class PostService {
     { id: '3', titre: "Troisième post", contenu: "détails troisième post" },
   ];
 
-  constructor() {}
+  constructor(private http: HttpClient) {}
+
+  // getPosts() {
+  //   return this.postList;
+  // }
 
   getPosts() {
-    return this.postList;
+    return this.http.get('http://localhost:3000/posts');
   }
 }
