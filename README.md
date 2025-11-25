@@ -1,27 +1,180 @@
-# ExamHoussem
+# **PARTIE I – FRONT-END ANGULAR (8 pts)**
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.8.
+## **1. Création du projet Angular**
 
-## Development server
+```bash
+ng new exam-houssem
+cd exam-houssem
+ng s
+```
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+Ce step crée la structure du projet et démarre l'application.
 
-## Code scaffolding
+---
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## **2. Installation et intégration de Bootstrap v5**
 
-## Build
+Installer Bootstrap :
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+```bash
+npm install bootstrap@5
+```
 
-## Running unit tests
+Ajouter Bootstrap dans `angular.json` :
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+```json
+"styles": [
+  "src/styles.css",
+  "node_modules/bootstrap/dist/css/bootstrap.min.css"
+],
+"scripts": [
+  "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
+]
+```
 
-## Running end-to-end tests
+Cela permet d’utiliser les composants Bootstrap directement dans Angular.
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+---
 
-## Further help
+## **3. Création du service PostService**
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+Command :
+
+```bash
+ng g s services/post
+```
+
+Le service contient une liste de posts + la méthode `getPosts()` pour récupérer les données (statique ou via API REST).
+
+---
+
+## **4. Création des composants Angular**
+
+```bash
+ng g c components/post-list
+ng g c components/post-item
+ng g c components/login
+```
+
+### Rôle des composants :
+
+* **app.component** → Navbar + container
+* **post-list** → Affichage de la liste des posts (Bootstrap Accordion)
+* **post-item** → Affichage d’un post (facultatif)
+* **login** → Page simple « Login Page »
+
+---
+
+## **5. Mise en place du routing Angular**
+
+Routes :
+
+```ts
+const routes: Routes = [
+  { path: 'posts', component: PostListComponent },
+  { path: 'login', component: LoginComponent },
+  { path: '', redirectTo: 'posts', pathMatch: 'full' },
+];
+```
+
+Le routing permet de naviguer entre les pages.
+
+---
+
+## **6. Git commit + création d’une branche**
+
+```bash
+git init
+git add .
+git commit -m "Initial Angular structure"
+git branch version2
+```
+
+---
+
+## **7. Association d’un dépôt GitHub**
+
+```bash
+git remote add origin https://github.com/Sen-Se1/exam-houssem.git
+git branch -M main
+git push -u origin main
+git push -u origin version2
+```
+
+Cela permet de publier tout le projet en ligne.
+
+---
+
+---
+
+# **PARTIE II – BACK-END NODEJS (8 pts)**
+
+## **8. Création du serveur NodeJS + ExpressJS**
+
+Initialisation du backend :
+
+```bash
+mkdir backend && cd backend && touch server.js
+npm init -y
+npm install express cors
+```
+
+Création du fichier `server.js` avec une API REST fonctionnelle.
+
+---
+
+## **9. API GET /postList**
+
+Une route Express retourne les posts :
+
+```js
+app.get('/postList', (req, res) => {
+  res.json(postList);
+});
+```
+
+---
+
+## **10. Lancer le serveur Node**
+
+```bash
+node server.js
+```
+
+---
+
+---
+
+# **PARTIE III – LIAISON FRONT / BACK (4 pts)**
+
+## **11. Appel API REST dans Angular via HttpClient**
+
+Importer `HttpClientModule` dans `app.module.ts`.
+
+Le service Angular utilise la méthode :
+
+```ts
+return this.http.get('http://localhost:3000/postList');
+```
+
+Cela remplace les données statiques par celles du backend.
+
+---
+
+## **12. Génération du build Angular dans backend/www**
+
+```bash
+ng build --output-path backend/www --configuration production
+```
+
+Cela compile l’application Angular pour la rendre servable via Node ou tout autre serveur.
+
+---
+
+## **13. Deuxième push GitHub**
+
+```bash
+git add .
+git commit -m "Backend + REST API + Angular build"
+git push
+```

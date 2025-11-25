@@ -10,7 +10,7 @@ const postList = [
   { id: '3', titre: "Troisième post", contenu: "détails troisième post" },
 ];
 
-app.get('/posts', (req, res) => {
+app.get('/postList', (req, res) => {
   res.json(postList);
 });
 
